@@ -23,32 +23,50 @@ class Manager {
   delete_Employee(tai_Khoan) {
     const index = this.locate_index(tai_Khoan);
     // Xóa
-    this.array_Employee.splice(index, 1);
+    if (index !== -1) {
+      // Tìm thấy thì mới trả về object
+      this.array_Employee.splice(index, 1);
+    }
   }
 
-  edit_Employee(tai_Khoan) {
+  get_Tai_khoan(tai_Khoan) {
     const index = this.locate_index(tai_Khoan);
-    const object_Employee = this.array_Employee[index];
-    return object_Employee;
+    if (index !== -1) {
+      // Tìm thấy thì mới trả về object
+      return this.array_Employee[index];
+    }
+    return null;
   }
 
-  update_Employee(tai_Khoan) {
-    const index = this.locate_index(tai_Khoan);
-    const object_Employee = this.array_Employee[index];
-    const new_tai_Khoan = object_Employee.tai_Khoan;
-    return new_tai_Khoan;
+  update_Employee(object_Employee) {
+    const index = this.locate_index(object_Employee.tai_Khoan);
+    if (index !== -1) {
+      this.array_Employee[index] = object_Employee;
+    }
   }
 
-  filter_Employee(input_Search) {
-    const filter_Employee = [];
+  search_Employee(input_Search) {
+    const search_Employee_Array = [];
+
+    if (input_Search === "tat ca" || input_Search === "all") {
+      return this.array_Employee;
+    }
 
     for (let i = 0; i < this.array_Employee.length; i += 1) {
       const object_Employee = this.array_Employee[i];
-      if (input_Search === object_Employee.xep_Loai) {
-        filter_Employee.push(object_Employee);
+
+      // Chuyển xếp loại sang chữ thường
+      const lower_Input_Search = input_Search.toLowerCase();
+
+      // Chuyển input_Search sang chữ thường
+      const lower_Xep_Loai = object_Employee.xep_Loai.toLowerCase();
+
+      if (lower_Xep_Loai.indexOf(lower_Input_Search) !== -1) {
+        search_Employee_Array.push(object_Employee);
       }
     }
-    return filter_Employee;
+
+    return search_Employee_Array;
   }
 }
 export default Manager;

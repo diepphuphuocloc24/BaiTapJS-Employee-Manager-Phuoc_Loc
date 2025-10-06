@@ -18,7 +18,7 @@ class Employee {
     this.chuc_Vu = chuc_Vu;
     this.gio_Lam = gio_Lam;
     this.tong_Luong = 0;
-    this.xep_Loai = "Nhân viên trung bình";
+    this.xep_Loai = "";
   }
   calculate_tong_Luong(he_So) {
     this.tong_Luong = Number(this.luong_Co_Ban * he_So);
